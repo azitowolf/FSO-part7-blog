@@ -43,4 +43,26 @@ const Root = ({ store }) => {
 }
 ```
 
-2. 
+2. Adding protected routes: 
+
+- use a custom protectedroute component that passes the parent component down to the Route Component. like so
+
+```javascript
+const PrivateRoute = ({ component: Component, user, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                user  ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect
+                        to={{ pathname: '/login', state: { from: props.location } }}
+                    />
+                )
+            }
+        />
+    )
+}
+```
+
